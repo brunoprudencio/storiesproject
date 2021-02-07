@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  storybooks-app:
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    environment:
+      - SERVER_PORT=3000
+      - MONGO_URI=mongodb://mongo:27017/storybooks
+    volumes:
+      - ./:/code
+    command: npm run dev
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+volumes:
+  mongodb:
+  mongodb_config:
